@@ -2,38 +2,36 @@ import React, { Component } from 'react';
 import logo from './logo.svg';
 import Movie from './Movie.js'
 import './App.css';
+import $ from 'jquery';
 
 class App extends Component {
   constructor(props){
     super(props);
-    const movies = [
-      {
-        'id' : 0,
-        'title' : 'Avengers, infinity war',
-        'overview' : 'overview 1',
-        'img' : 'http://www.omdbapi.com/src/poster.jpg'
+    this.state = {};    
+    this.performMovieSearch();
+  }
+
+  performMovieSearch() {
+    const url = 'https://api.themoviedb.org/3/movie/top_rated?api_key=3f1f4529ce42fc9e738d4f1f7dc87a60&language=en-US';
+    $.ajax({
+      url : url,
+      success : (searchResults) => {
+        const results = searchResults.results;
+        let movieRows = [];
+        results.forEach((movie) => {
+          const movieRow = <Movie movie={movie}/>
+          movieRows.push(movieRow);
+
+        });
+
+        this.setState({movies : movieRows});
       },
-      {
-        'id' : 1,
-        'title' : 'Jurasic World',
-        'overview' : 'overview 2',
-        'img' : 'http://www.omdbapi.com/src/poster.jpg'
+      error : (xhr, status, err) => {
+        console.log("Failed to fetch data");
+
       }
-    ];
-
-    let movieRows = [];
-    movies.forEach(movie => { 
-       console.log(movie.title)     
-        const movieRow = <Movie movie={movie}/>
-        movieRows.push(movieRow);
-    });
-
-    this.state = {
-      movies : movieRows
-    }
-
-  
-
+    })
+    console.log("Alrighty")
   }
   render() {
     return (
@@ -48,6 +46,8 @@ class App extends Component {
       
     );
   }
+
+  
 }
 
 export default App;
