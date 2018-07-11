@@ -30,3 +30,17 @@
   from { transform: rotate(0deg); }
   to { transform: rotate(360deg); }
 }
+
+
+/**
+movie
+**/
+
+.movie{
+  width: 300px;
+  height: 400px;
+  position: relative;
+  margin-top: 10px;
+  left: 42%;
+  border: 1px solid black;
+}

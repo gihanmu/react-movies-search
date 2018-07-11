@@ -22,13 +22,9 @@ class App extends Component {
     ];
 
     let movieRows = [];
-    movies.forEach(movie => {
-        // const movieRow = <div key={movie.id}>
-        //   <img src={movie.img}/>
-        //   <h3 >{movie.title}</h3>
-        //   <small>{movie.overview}</small>
-        // </div>
-        const movieRow = <Movie/>
+    movies.forEach(movie => { 
+       console.log(movie.title)     
+        const movieRow = <Movie movie={movie}/>
         movieRows.push(movieRow);
     });
 
@@ -36,14 +32,16 @@ class App extends Component {
       movies : movieRows
     }
 
+  
+
   }
   render() {
     return (
       
       <div className="App">
         <h1 className="title-bar">Movies DB Search</h1>
-        <Movie/>
-        <input type="text" placeholder="Search your movie here"/>
+        <input type="text" placeholder="Search your movie"/>
+       
         {this.state.movies}
       </div>
 
