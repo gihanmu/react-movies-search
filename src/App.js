@@ -11,8 +11,9 @@ class App extends Component {
     this.performMovieSearch();
   }
 
-  performMovieSearch() {
-    const url = 'https://api.themoviedb.org/3/movie/top_rated?api_key=3f1f4529ce42fc9e738d4f1f7dc87a60&language=en-US';
+  performMovieSearch(searchTerm) {
+    searchTerm = !searchTerm ? 'Avengers' : searchTerm
+    const url = 'https://api.themoviedb.org/3/search/movie?query=marvel&api_key=3f1f4529ce42fc9e738d4f1f7dc87a60&language=en-US&query='+searchTerm;
     $.ajax({
       url : url,
       success : (searchResults) => {
@@ -33,12 +34,18 @@ class App extends Component {
     })
     console.log("Alrighty")
   }
+
+  onSearchHandler(event){
+    const searchTerm = event.target.value;
+    this.performMovieSearch(searchTerm);
+
+  }
   render() {
     return (
       
       <div className="App">
         <h1 className="title-bar">Movies DB Search</h1>
-        <input type="text" placeholder="Search your movie"/>
+        <input type="text" placeholder="Search your movie" onChange={this.onSearchHandler.bind(this)}/>
        
         {this.state.movies}
       </div>
